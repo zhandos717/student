@@ -89,37 +89,40 @@
           [
             'image' => 'images/image.jpg',
             'desc' => 'This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.',
-            'time' => '9 mins'
+            'time' => '9 mins',
+            'status' => '0'
           ],      [
             'image' => 'images/image.jpg',
             'desc' => 'This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.',
             'time' => '9 mins',
-            'opacity' => '0.4'
+            'status' => '1'
           ],
           [
             'image' => 'images/image.jpg',
             'desc' => 'This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.',
             'time' => '9 mins',
-            'opacity' => '0.4'
+            'status' => '1'
           ],      [
             'image' => 'images/image.jpg',
             'desc' => 'This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.',
-            'time' => '9 mins'
+            'time' => '9 mins',
+            'status' => '0'
           ],      [
             'image' => 'images/image.jpg',
             'desc' => 'This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.',
-            'time' => '9 mins'
+            'time' => '9 mins',
+            'status' => '0'
           ],      [
             'image' => 'images/image.jpg',
             'desc' => 'This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.',
-            'time' => '9 mins'
+            'time' => '9 mins',
+            'status' => '0'
           ]
         ];
         ?>
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
           <?php foreach ($posts as $post) : ?>
-            <div class="col" <?if($post['opacity']){?> style="opacity:<?= $post['opacity']; ?>"
-              <?}?>>
+            <div class="col" <?if($post['status']==1){?> style="opacity:0.4" <?}?>>
               <div class="card shadow-sm">
                 <img src="<?= $post['image'] ?>" alt="">
                 <div class="card-body">
