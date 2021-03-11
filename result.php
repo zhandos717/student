@@ -35,16 +35,21 @@
                 <div class="col-lg-12">
                     <h1>Вы отправили сообщение: <span class="text-success"><?= $_POST["message"]; ?> </span></h1>
                     <?php
-                    $uploaddir = './images/'; // Путь куда загружаем файл
-                    $uploadfile = $uploaddir . basename($_FILES['userfile']['name']); // Достаем файл из врменной директории и кидаем куда нам нужно
+                    function upload_image($file)
+                    {
+                        $upload_dir = './images/'; // Путь куда загружаем файл
+                        $file_extension = pathinfo($file['name'], PATHINFO_EXTENSION); // Достаем расширение файла
+                        $file_name = $upload_dir . uniqid() . '.' . $file_extension; //Создаем новое имя во избежание затирания файла
+                        move_uploaded_file($file['tmp_name'], $file_name); // Загружаем файл в нашу директорию 
+                        return [$file_extension, $file_name];
+                    }
                     $accepted_formate = ['gif', 'jpg', 'jpeg', 'png']; // Массив расширении файлов
-                    $file_extension = explode('.', $_FILES['userfile']['name']); // Делим название на массив 
-                    $file_extension = strtolower(end($file_extension)); // Достаем последнее значение
-                    if (move_uploaded_file($_FILES['userfile']['tmp_name'], $uploadfile)) : ?>
+                    $file_name =  upload_image($_FILES['userfile']);
+                    if ($file_name) : ?>
                         <div class="alert alert-success" role="alert">
                             <h4 class="alert-heading">Отличная работа!</h4>
-                            <?if (in_array($file_extension,$accepted_formate)){?>
-                            <img style="width: 40%" src="<?= $uploadfile ?>" class="img-fluid" alt="">
+                            <?if (in_array($file_name[0],$accepted_formate)){?>
+                            <img style="width: 40%" src="<?= $file_name[1] ?>" class="img-fluid" alt="">
                             <?}?>
                             <p> Файл <b> <?= $_FILES['userfile']['name'] ?></b> корректен и был успешно загружен! </p>
                         </div>
@@ -57,10 +62,8 @@
                         <div class="alert alert-danger" role="alert">
                             Возникла ошибка, попробуйте еще раз!
                         </div>
-                        <div class="progress-bar progress-bar-striped progress-bar-animated bg-danger" role="progressbar" style="width: 0%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
-                            <div>0%</div>
-                        </div>
                     <?php endif; ?>
+
                 </div>
             </div>
         </section>
