@@ -35,12 +35,17 @@
                 <div class="col-lg-12">
                     <h1>Вы отправили сообщение: <span class="text-success"><?= $_POST["message"]; ?> </span></h1>
                     <?php
-                    $uploaddir = './images/';
-                    $uploadfile = $uploaddir . basename($_FILES['userfile']['name']);
+                    $uploaddir = './images/'; // Путь куда загружаем файл
+                    $uploadfile = $uploaddir . basename($_FILES['userfile']['name']); // Достаем файл из врменной директории и кидаем куда нам нужно
+                    $accepted_formate = ['gif', 'jpg', 'jpeg', 'png']; // Массив расширении файлов
+                    $file_extension = explode('.', $_FILES['userfile']['name']); // Делим название на массив 
+                    $file_extension = strtolower(end($file_extension)); // Достаем последнее значение
                     if (move_uploaded_file($_FILES['userfile']['tmp_name'], $uploadfile)) : ?>
                         <div class="alert alert-success" role="alert">
                             <h4 class="alert-heading">Отличная работа!</h4>
-                            <img src="<?= $uploadfile ?>" class="img-fluid" alt="">
+                            <?if (in_array($file_extension,$accepted_formate)){?>
+                            <img style="width: 40%" src="<?= $uploadfile ?>" class="img-fluid" alt="">
+                            <?}?>
                             <p> Файл <b> <?= $_FILES['userfile']['name'] ?></b> корректен и был успешно загружен! </p>
                         </div>
                         <div class="progress col-lg-12">
