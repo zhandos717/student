@@ -33,16 +33,15 @@
         <section class="text-center container">
             <div class="row py-lg-2">
                 <div class="col-lg-12">
-
                     <h1>Вы отправили сообщение: <span class="text-success"><?= $_POST["message"]; ?> </span></h1>
-
                     <?php
                     $uploaddir = './images/';
                     $uploadfile = $uploaddir . basename($_FILES['userfile']['name']);
                     if (move_uploaded_file($_FILES['userfile']['tmp_name'], $uploadfile)) : ?>
                         <div class="alert alert-success" role="alert">
                             <h4 class="alert-heading">Отличная работа!</h4>
-                            <p> Файл <b><?= $_FILES['userfile']['name'] ?></b> корректен и был успешно загружен! </p>
+                            <img src="<?= $uploadfile ?>" class="img-fluid" alt="">
+                            <p> Файл <b> <?= $_FILES['userfile']['name'] ?></b> корректен и был успешно загружен! </p>
                         </div>
                         <div class="progress col-lg-12">
                             <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
